@@ -58,17 +58,24 @@ This workflow breaks down when using Webpack to run a local dev server that host
 
 To avoid all these issues, this boilerplate uses a different approach. There is no `build` script set up for the lower-level packages because we do not intend to publish them individually. They exist only to share code within the monorepo. Instead, we are using `babel-loader` in the top-level package to resolve the imports for each dependency. In the `web-cra` package, this is accomplished by using [react-app-rewired](https://github.com/timarney/react-app-rewired) and [customize-cra](https://github.com/arackaf/customize-cra) to override the Webpack configuration provided by [Create React App](https://github.com/facebook/create-react-app). In the `web-next` package, this is accomplished by using [next-transpile-modules](https://github.com/kutlugsahin/next-transpile-modules) in the NextJS config file.
 
-The approach was inspired by this [blog post](https://iamturns.com/typescript-babel/) by Matt Turnbull.
+This approach was inspired by this [blog post](https://iamturns.com/typescript-babel/) by Matt Turnbull.
 
+## Getting started
+
+1. If you don't have `yarn` installed yet, run `brew install yarn`. Other installation options [are available](https://yarnpkg.com/en/docs/install).
+2. Install and symlink all dependencies by running `lerna bootstrap` from the root of the monorepo.
+
+Generally, you can find more detailed instructions on each package within its README.md file.
 ### How to know it's working
 
 You'll know that this particular way of transpiling TypeScript is working because you can do this:
 
-1. Start up the dev server for either `packages/web-cra` or `packages/web-next`:
+1. Follow directions under Getting started above.
+2. Start up the dev server for either `packages/web-cra` or `packages/web-next`:
     - cd to `packages/web-cra` or `packages/web-next`
     - run `yarn start`
-2. Make some changes in any package imported by the top-level package, i.e. in `packages/components` or `packages/utils`
-3. Notice that your changes in a lower-level package are immediately available in the top-level package, without any separate process watching for changes in the lower-level package. Hot module reloading works as you would expect.
+3. Make some changes in any package imported by the top-level package, i.e. in `packages/components` or `packages/utils`
+4. Notice that your changes in a lower-level package are immediately available in the top-level package, without any separate process watching for changes in the lower-level package. Hot module reloading works as you would expect.
 
 **This is the core feature of this boilerplate, and the thing that is hard to figure out when you're trying to set things up from scratch.**
 
@@ -90,12 +97,7 @@ It's easy to spend a lot of time just setting up various tools like ESLint and p
 
 A GitHub Actions workflow is included in [./.github/workflows/lint-and-unit-test.yml](./.github/workflows/lint-and-unit-test.yml). This is a good example of how to leverage Lerna in a CI capacity by running scripts declared in the root package.json file. Every time this workflow runs, it will run `yarn lint-all` and `yarn test-all`, which is using `lerna run test --parallel --stream`. More detailed notes on these scripts are included below.
 
-## Getting started
 
-1. If you don't have `yarn` installed yet, run `brew install yarn`. Other installation options [are available](https://yarnpkg.com/en/docs/install).
-2. Install and symlink all dependencies by running `lerna bootstrap` from the root of the monorepo.
-
-Generally, you can find more detailed instructions on each package within its README.md file.
 
 ## Available scripts
 
