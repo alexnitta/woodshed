@@ -152,7 +152,6 @@ Since we are using yarn workspaces, dependencies are installed in the root node_
 
 Most often, you will need to add a dependency for a specific project in `/packages`. An example would be installing `lodash` in `packages/web-cra`. To do this, you would do:
 ```bash
-# from woodshed root folder
 lerna add lodash --scope=@woodshed/web-cra # adds lodash as a production dependency
 lerna add -D lodash --scope=@woodshed/web-cra # adds lodash as a development dependency
 ```
@@ -163,7 +162,6 @@ Note the `--scope=` part - this is because we are using npm [scoped packages](ht
 
 If you need to add a dependency to the root of woodshed, you would do:
 ```bash
-# from monorepo root folder
 yarn add lodash -W
 ```
 
@@ -185,7 +183,6 @@ This is another rare use case. Read more on [`lerna add`](https://github.com/ler
 
 To remove a dependency from a package in `/packages`, you would run:
 ```bash
-# from monorepo root folder
 yarn workspace @woodshed/desktop remove lodash
 ```
 
@@ -193,7 +190,6 @@ yarn workspace @woodshed/desktop remove lodash
 
 If you need to remove a dependency from the root of the woodshed, you would do:
 ```bash
-# from monorepo root folder
 yarn remove lodash -W
 ```
 
