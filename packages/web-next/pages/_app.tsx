@@ -1,11 +1,14 @@
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 
+import './App.css';
+import './index.css';
+
 const App = ({ Component, pageProps }: AppProps): JSX.Element => {
     return (
         <>
             <Head>
-                <title>woodshed</title>
+                <title>Woodshed</title>
                 <link
                     rel="apple-touch-icon"
                     sizes="180x180"

@@ -11,6 +11,7 @@
     "license": "MIT",
     "scripts": {
         "build": "next build",
+        "precommit": "lint-staged",
         "start": "NODE_OPTIONS='--inspect' next dev -p 3001",
         "start-prod": "next start",
         "test": "jest",
