@@ -19,7 +19,7 @@ Reasons why you might want to clone this repo to start your own project:
 
 Alternatives you could choose instead:
 
-- [RedwoodJS](https://redwoodjs.com/) is a React-based framework that makes more choices for you and is more prescriptive in its structure. At the time of this writing, RedwoodJS is in beta and TypeScript support is not fully implemented, but it should be coming soon in v1.
+- [RedwoodJS](https://redwoodjs.com/) is a React-based framework that makes more choices for you and is more prescriptive in its structure. At the time I'm writing this, RedwoodJS is in beta and TypeScript support is not fully implemented, but it should be coming soon in v1.
 - [Blitz](https://blitzjs.com/) is a fullstack framework built on top of [NextJS](https://nextjs.org/) with a novel approach to the data layer. TypeScript is fully supported. Also in beta, with a v1 promised soon.
 
 In some places, you'll see me writing from the first person, in other places, I use "we." This is because this readme is serving both as an explanation of how the project is structured and a mock version of a readme in a real project being built by a team.
@@ -54,9 +54,9 @@ In a typical TypeScript project, you would have a single `package.json` file tha
 
 To use such a workflow while developing several packages at once which depend on each other, you would have to run a process for each package that watches for changes in the `src` folder and transpiles them to JavaScript (and the various type definitions and sourcemaps). This is possible with either the `tsc` CLI (for pure TypeScript) or Webpack (when importing other file types like CSS or images). Each package would have its own `start` script which would watch for changes and transpile the TypeScript source into JavaScript within that package.
 
-This workflow breaks down when running a local dev server like `webpack-dev-server` to run the root application. You run into race conditions and intermittent crashes that are very hard to debug - not to mention terrible performance from all these running build processes. TypeScript has a feature called Project References which is intended to solve this problem for pure TypeScript projects with several interdependent packages. However, this isn't a solution when you need to use Webpack because you import stylesheets or images in your TypeScript. There is a Webpack loader for TypeScript called `ts-loader` which supports project references, but you still are stuck with the fact that each dependency package is bundled into a single JS file, which kills a lot of the benefit of hot module reloading in Webpack.
+This workflow breaks down when running a local dev server like `webpack-dev-server` to run the top-level application. You run into race conditions and intermittent crashes that are very hard to debug - not to mention poor performance from all these running build processes. TypeScript has a feature called Project References which is intended to solve this problem for pure TypeScript projects with several interdependent packages. However, this isn't a solution when you need to use Webpack because you import stylesheets or images in your TypeScript. There is a Webpack loader for TypeScript called `ts-loader` which supports project references, but you still are stuck with the fact that each dependency package is bundled into a single JS file, which kills a lot of the benefit of hot module reloading in Webpack.
 
-To avoid all these issues, this boilerplate uses a different approach. There is no `build` script set up for the dependency packages because we do not intend to publish them individually. They exist only to share code between our various top-level applications. Instead, we are using `babel-loader` in the top-level package to resolve the imports for each dependency. In the `web-cra` package, this is accomplished by using [react-app-rewired](https://github.com/timarney/react-app-rewired) and [customize-cra](https://github.com/arackaf/customize-cra) to override the Webpack configuration provided by [Create React App](https://github.com/facebook/create-react-app). In the `web-next` package, this is accomplished by using [next-transpile-modules](https://github.com/kutlugsahin/next-transpile-modules) in the NextJS config file.
+To avoid all these issues, this boilerplate uses a different approach. There is no `build` script set up for the lower-level packages because we do not intend to publish them individually. They exist only to share code within the monorepo. Instead, we are using `babel-loader` in the top-level package to resolve the imports for each dependency. In the `web-cra` package, this is accomplished by using [react-app-rewired](https://github.com/timarney/react-app-rewired) and [customize-cra](https://github.com/arackaf/customize-cra) to override the Webpack configuration provided by [Create React App](https://github.com/facebook/create-react-app). In the `web-next` package, this is accomplished by using [next-transpile-modules](https://github.com/kutlugsahin/next-transpile-modules) in the NextJS config file.
 
 ### How to know it's working
 
@@ -66,7 +66,7 @@ You'll know that this particular way of transpiling TypeScript is working becaus
     - cd to `packages/web-cra` or `packages/web-next`
     - run `yarn start`
 2. Make some changes in any package imported by the top-level package, i.e. in `packages/components` or `packages/utils`
-3. Notice that your changes in a lower-level package are immediately available in the top-level package, without any separate process watching for changes in the lower-level package. Hot reloading works as you would expect.
+3. Notice that your changes in a lower-level package are immediately available in the top-level package, without any separate process watching for changes in the lower-level package. Hot module reloading works as you would expect.
 
 **This is the core feature of this boilerplate, and the thing that is hard to figure out when you're trying to set things up from scratch.**
 
@@ -74,7 +74,7 @@ You'll know that this particular way of transpiling TypeScript is working becaus
 
 ### Code conventions
 
-It's easy to spend a lot of time just setting up various tools like ESLint and prettier to enforce code conventions. This is done via a pre-commit hook. Since I had already done this setup work, it seemed a shame to throw it out before sharing this project. Feel free to change or discard these configs however it best suits your needs. More detailed notes are in [./docs/code_conventions.md](./docs/code_conventions.md).
+It's easy to spend a lot of time just setting up various tools like ESLint and prettier to enforce code conventions. Since I had already done this setup work, it seemed a shame to throw it out before sharing this project. Feel free to change or discard these configs however it best suits your needs. Out of the box, these conventions are enforced with a pre-commit hook. More detailed notes are in [./docs/code_conventions.md](./docs/code_conventions.md).
 
 ### GitHub Actions workflow
 
