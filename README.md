@@ -163,7 +163,7 @@ Note the `--scope=` part - this is because we are using npm [scoped packages](ht
 
 If you need to add a dependency to the root of woodshed, you would do:
 ```bash
-# from woodshed root folder
+# from monorepo root folder
 yarn add lodash -W
 ```
 
