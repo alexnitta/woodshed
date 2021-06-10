@@ -3,6 +3,10 @@
 // eslint-disable @typescript-eslint/no-var-requires
 
 const withTM = require('next-transpile-modules')([
+    /**
+     * IMPORTANT: all lower-level packages imported by this top-level package need to be listed
+     * here
+     * */
     '@woodshed/components',
     '@woodshed/utils',
 ]);

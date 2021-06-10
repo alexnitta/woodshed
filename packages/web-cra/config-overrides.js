@@ -12,7 +12,10 @@ const path = require('path');
 module.exports = override(
     babelInclude([
         path.resolve('src'),
-        // All TypeScript package dependencies need to be listed here
+        /**
+         * IMPORTANT: all lower-level packages imported by this top-level package need to be listed
+         * here
+         * */
         path.resolve('../components/src'),
         path.resolve('../utils/src'),
     ]),
