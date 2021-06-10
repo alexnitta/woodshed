@@ -4,3 +4,4 @@
 **/build/**
 webpack.*
 src/react-app-env.d.ts
+.eslintrc.js

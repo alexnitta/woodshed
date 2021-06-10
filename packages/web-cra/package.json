@@ -38,6 +38,8 @@
         ]
     },
     "dependencies": {
+        "@testing-library/jest-dom": "^5.13.0",
+        "@testing-library/react": "^11.2.7",
         "@types/react-router-dom": "^5.1.6",
         "@woodshed/components": "^1.0.0",
         "@woodshed/utils": "^1.0.0",

@@ -21,9 +21,6 @@
             "path": "../components"
         },
         {
-            "path": "../resolvers"
-        },
-        {
             "path": "../utils"
         }
     ]

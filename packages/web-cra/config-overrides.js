@@ -17,7 +17,7 @@ module.exports = override(
         path.resolve('../utils/src'),
     ]),
     // Added to prevent 'invalid hook call warning'. This is also why we have 'nohoist' set up
-    // in packages/web/package.json.
+    // in packages/web-cra/package.json.
     // See: https://reactjs.org/warnings/invalid-hook-call-warning.html
     // and: https://github.com/facebook/react/issues/13991
     addWebpackAlias({

@@ -1,24 +1,26 @@
 import React from 'react';
-import logo from './logo.svg';
+
+import { Button } from '@woodshed/components';
+import { addThousandsSeparator } from '@woodshed/utils';
+
 import './App.css';
 
 function App(): JSX.Element {
     return (
         <div className="App">
-            <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo" />
-                <p>
-                    Edit <code>src/App.tsx</code> and save to reload.
-                </p>
-                <a
-                    className="App-link"
-                    href="https://reactjs.org"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Learn React
-                </a>
-            </header>
+            <h1>@woodshed/web-cra</h1>
+            <Button
+                onClick={() => {
+                    // eslint-disable-next-line no-alert
+                    alert('You clicked a button.');
+                }}
+            >
+                This is an imported component.
+            </Button>
+            <p>
+                This is the output of an imported utility function:{' '}
+                {addThousandsSeparator('1000')}
+            </p>
         </div>
     );
 }
