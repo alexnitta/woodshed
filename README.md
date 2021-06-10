@@ -6,6 +6,8 @@ _by Alex Nitta @ [alexnitta.com](https://alexnitta.com/)_
 
 This project is a reflection of lessons learned when building applications with [Lerna](https://lerna.js.org/), [TypeScript](https://www.typescriptlang.org/) and [React](https://reactjs.org/). I'm writing a blog post to describe how I arrived at this particular setup which will link back to this repo.
 
+This entire repo is MIT licensed - feel free to reuse any part of it.
+
 ## Caveats
 
 It's worth noting that you should do your own research into how each of these tools work before you chose this path; this readme is not going to go into the fundamentals of any of them.
