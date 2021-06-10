@@ -1,0 +1,59 @@
+{
+    "name": "@woodshed/web-cra",
+    "version": "1.0.0",
+    "description": "React web application built with Create React App",
+    "author": "Trqk, Inc.",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/alexnitta/woodshed.git"
+    },
+    "private": true,
+    "license": "SEE LICENSE IN LICENSE",
+    "scripts": {
+        "build": "react-app-rewired build",
+        "lint": "eslint \"**/*.{ts,tsx,js}\" --fix",
+        "precommit": "lint-staged",
+        "start": "react-app-rewired start",
+        "test": "react-app-rewired test --watchAll=false --passWithNoTests",
+        "test-watch": "react-app-rewired test"
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    },
+    "workspaces": {
+        "nohoist": [
+            "react",
+            "react-dom",
+            "react-router-dom",
+            "react-router-dom/**"
+        ]
+    },
+    "dependencies": {
+        "@types/react-router-dom": "^5.1.6",
+        "@woodshed/components": "^1.0.0",
+        "@woodshed/utils": "^1.0.0",
+        "react": "^17.0.0",
+        "react-dom": "^17.0.0",
+        "react-router-dom": "^5.2.0",
+        "react-scripts": "4.0.1",
+        "web-vitals": "^2.0.1"
+    },
+    "devDependencies": {
+        "@types/jest": "^26.0.14",
+        "@types/react": "^16.9.17",
+        "@types/react-dom": "^16.9.4",
+        "customize-cra": "^1.0.0",
+        "lint-staged": "^10.2.9",
+        "react-app-rewired": "^2.1.8",
+        "typescript": "4.1.3"
+    }
+}

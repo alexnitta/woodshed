@@ -1,0 +1,55 @@
+# OS Specific
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE Specific
+nbproject
+.~lock.*
+.buildpath
+.idea
+.project
+.settings
+composer.lock
+*.sublime-workspace
+*.swp
+*.swo
+
+# Project Specific
+node_modules/
+*.log
+tmp
+.changelog
+coverage/
+.nyc_output/
+.eslintcache
+
+# npm / yarn logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# We are using yarn, not npm, so we don't need to commit package-lock.json
+package-lock.json
+
+# production output
+build
+packages/docs/storybook-static
+
+# We want to publish the `lib` folders within our packages, but we don't want to check them into
+# git. There is an empty .npmignore file in packages that need to publish `lib`.
+# See: https://docs.npmjs.com/misc/developers#keeping-files-out-of-your-package
+packages/*/lib/
+
+# build caches
+tsconfig.tsbuildinfo
+.cache
+.parcel-cache
+
+# NextJS
+.next
+.env.local

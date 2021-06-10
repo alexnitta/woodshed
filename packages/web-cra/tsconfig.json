@@ -1,0 +1,10 @@
+{
+    "extends": "../../tsconfig-package-base",
+    "compilerOptions": {
+        "module": "esnext",
+        "target": "es5",
+        "typeRoots": ["../../customTypes", "./node_modules/@types", "../../node_modules/@types"],
+        "baseUrl": "."
+    },
+    "include": ["src"],
+}

@@ -1,0 +1,23 @@
+{
+    "name": "@woodshed/utils",
+    "version": "1.0.0",
+    "description": "Utilities used across packages",
+    "author": "Alex Nitta",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/alexnitta/woodshed.git"
+    },
+    "private": true,
+    "license": "MIT",
+    "main": "src/index.ts",
+    "scripts": {
+        "precommit": "lint-staged",
+        "test": "echo \"No tests have been written\" && exit 0"
+    },
+    "devDependencies": {
+        "eslint": "^6.8.0",
+        "lint-staged": "^10.2.9",
+        "stylelint": "^13.2.1",
+        "typescript": "^4.1.3"
+    }
+}

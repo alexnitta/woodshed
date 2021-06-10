@@ -1,0 +1,8 @@
+**/node_modules/**
+**/dist/**
+**/lib/**
+**/build/**
+webpack.*
+**/.eslintrc.js
+packages/*/src/react-app-env.d.ts
+generatedTypes/**

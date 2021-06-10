@@ -1,0 +1,7 @@
+{
+    "extends": "../../tsconfig-package-base",
+    "compilerOptions": {
+        "typeRoots": ["./node_modules/@types", "../../node_modules/@types", "../../globalTypes"],
+    },
+    "include": ["src"]
+}

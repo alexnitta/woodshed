@@ -1,0 +1,15 @@
+{
+    "extends": "../../tsconfig-package-base",
+    "compilerOptions": {
+        "target": "es5",
+        "module": "esnext",
+        "jsx": "preserve",
+        "typeRoots": [
+            "./node_modules/@types",
+            "../../node_modules/@types",
+            "../../globalTypes",
+        ]
+    },
+    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "locales/index.js"],
+    "exclude": ["node_modules"]
+}

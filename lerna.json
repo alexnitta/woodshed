@@ -1,0 +1,18 @@
+{
+  "version": "independent",
+  "npmClient": "yarn",
+  "packages": [
+      "packages/*"
+  ],
+  "useWorkspaces": true,
+  "command": {
+      "publish": {
+          "message": "chore: bump versions [skip ci]"
+      },
+      "version": {
+          "allowBranch": [
+              "develop"
+          ]
+      }
+  }
+}
