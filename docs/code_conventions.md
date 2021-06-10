@@ -4,6 +4,10 @@
 
 Each package has its own `.tsconfig.json` file that configures TypeScript and extends the base configuration in `tsconfig-package-base.json`. These files should be kept as similar as possible.
 
+## TSDoc
+
+We document our code with [TSDoc](https://tsdoc.org/) to avoid duplicating our type definitions in our documentation. This is enforced via ESLint with the [eslint-plugin-tsdoc](https://www.npmjs.com/package/eslint-plugin-tsdoc) plugin.
+
 ## Conventional Commits
 
 We use the [Conventional Commits Specification](https://www.conventionalcommits.org/en/v1.0.0/) to write commit messages. This is important as it will be used to determine the version number during the CI workflow and to generate automated CHANGELOG.md files in each package. This is enforced with [commitlint](https://commitlint.js.org/#/) to ensure that every commit follows our format.

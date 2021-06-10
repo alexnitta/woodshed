@@ -7,9 +7,16 @@
         "typeRoots": [
             "./node_modules/@types",
             "../../node_modules/@types",
-            "../../globalTypes",
+            "../../globalTypes"
         ]
     },
-    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "locales/index.js"],
-    "exclude": ["node_modules"]
+    "include": [
+        "next-env.d.ts",
+        "**/*.ts",
+        "**/*.tsx",
+        "locales/index.js"
+    ],
+    "exclude": [
+        "node_modules"
+    ]
 }

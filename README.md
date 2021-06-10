@@ -30,11 +30,11 @@ This boilerplate is intentionally bare-bones in some regards to give you more fl
 - a styling library, such as [TailwindCSS](https://tailwindcss.com/) or [styled components](https://styled-components.com/)
 - a deployment pipeline, such as a GitHub Actions workflow, to deploy your code to the web
 
-If you choose to implement a GraphQL API, make sure to use a tool like [graphql-code-generator](https://www.graphql-code-generator.com/) to generate TypeScript definitions from your GraphQL schema. This will save time and prevent bugs inherent in manually declaring TypeScript type definitions that work with your GraphQL schema.
+If you choose to implement a GraphQL API, make sure to use a tool like [graphql-code-generator](https://www.graphql-code-generator.com/) to generate TypeScript definitions from your GraphQL schema. This will save time and prevent bugs inherent in manually declaring type definitions.
 
 ### Cloning the boilerplate
 
-When cloning this boilerplate to start your own project, you'll want to do a find-and-replace for all instances of `@woodshed` and replace it with your own project name. There are a few other places where the "woodshed" name shows up (like in packages/web-cra/public/index.html) that you will also need to update. It goes without saying, but you should also edit this readme to avoid confusion as well.
+When cloning this boilerplate to start your own project, you'll want to do a find-and-replace for all instances of `@woodshed` and replace it with your own project name. There are a few other places where the "woodshed" name shows up that you will also need to update, such as in [./packages/web-cra/public/index.html](./packages/web-cra/public/index.html). It goes without saying, but you should edit this readme to avoid confusion as well.
 
 ## Project structure
 
@@ -48,15 +48,17 @@ Broadly speaking, there are two types of packages here: top-level packages, whic
 
 In this boilerplate, the two top-level packages are `packages/web-cra` (built with Create React App) and `packages/web-next` (built with NextJS). All other packages are lower-level; i.e. they are not built into a client-facing app. You would not necessarily use both of these top-level packages; they are here for illustrative purposes only.
 
-## Core feature: the TypeScript setup
+## Core feature: TypeScript / Webpack / Babel setup
 
 In a typical TypeScript project, you would have a single `package.json` file that exposes the details of an NPM package written in TypeScript. The general workflow would be to write TypeScript code and transpile the code to JavaScript before publishing the package. Consumers of the package would be able to import the transpiled code as plain JavaScript. If a consumer was also working in TypeScript, they would import the `.d.ts` files as well, which are type definitions that allow interoperability between TypeScript projects.
 
 To use such a workflow while developing several packages at once which depend on each other, you would have to run a process for each package that watches for changes in the `src` folder and transpiles them to JavaScript (and the various type definitions and sourcemaps). This is possible with either the `tsc` CLI (for pure TypeScript) or Webpack (when importing other file types like CSS or images). Each package would have its own `start` script which would watch for changes and transpile the TypeScript source into JavaScript within that package.
 
-This workflow breaks down when running a local dev server like `webpack-dev-server` to run the top-level application. You run into race conditions and intermittent crashes that are very hard to debug - not to mention poor performance from all these running build processes. TypeScript has a feature called Project References which is intended to solve this problem for pure TypeScript projects with several interdependent packages. However, this isn't a solution when you need to use Webpack because you import stylesheets or images in your TypeScript. There is a Webpack loader for TypeScript called `ts-loader` which supports project references, but you still are stuck with the fact that each dependency package is bundled into a single JS file, which kills a lot of the benefit of hot module reloading in Webpack.
+This workflow breaks down when using Webpack to run a local dev server that hosts the top-level application. You run into race conditions and intermittent crashes that are very hard to debug - not to mention poor performance from all these running build processes. TypeScript has a feature called Project References which is intended to solve this problem for pure TypeScript projects with several interdependent packages. However, this isn't a solution when you need to use Webpack because you import stylesheets or images in your TypeScript. There is a Webpack loader for TypeScript called `ts-loader` which supports project references, but you still are stuck with the fact that each dependency package is bundled into a single JS file, which kills a lot of the benefit of hot module reloading in Webpack.
 
 To avoid all these issues, this boilerplate uses a different approach. There is no `build` script set up for the lower-level packages because we do not intend to publish them individually. They exist only to share code within the monorepo. Instead, we are using `babel-loader` in the top-level package to resolve the imports for each dependency. In the `web-cra` package, this is accomplished by using [react-app-rewired](https://github.com/timarney/react-app-rewired) and [customize-cra](https://github.com/arackaf/customize-cra) to override the Webpack configuration provided by [Create React App](https://github.com/facebook/create-react-app). In the `web-next` package, this is accomplished by using [next-transpile-modules](https://github.com/kutlugsahin/next-transpile-modules) in the NextJS config file.
+
+The approach was inspired by this [blog post](https://iamturns.com/typescript-babel/) by Matt Turnbull.
 
 ### How to know it's working
 
@@ -70,7 +72,15 @@ You'll know that this particular way of transpiling TypeScript is working becaus
 
 **This is the core feature of this boilerplate, and the thing that is hard to figure out when you're trying to set things up from scratch.**
 
-## Bonus features
+## More features
+
+### Global types
+
+After spending some time with TypeScript, you'll start to find that you want to declare types in some central location so they can be used throughout your codebase. In a monorepo context, we have a convenient solution for this: set up these global types in a folder within the monorepo root, and reference them within each package's tsconfig.json file as an element of the `compilerOptions.typeRoots` array. In this project, these types live in `./globalTypes`. There are some quirks to this workflow, though:
+
+- For some reason, TypeScript expects these types to live in a subfolder of the type root, so you have to put things in `./globalTypes/woodshed/`, for example. Be careful about how you structure these folders, as they can get unwieldy rather quickly.
+- You can make as many of these subfolders as you want, but you'll need to add an `index.d.ts` file to each one which uses an esoteric `///` syntax. See the example in: [./globalTypes/woodshed/index.d.ts](./globalTypes/woodshed/index.d.ts).
+- Our tsconfig options and linting rules are set up to discourage use of the `any` type, which is generally considered a best practice. However, you can inadvertently use an `any` type by failing to import a type from a library within these globalTypes. See the example in: [./globalTypes/woodshed/state.d.ts](./globalTypes/woodshed/state.d.ts).
 
 ### Code conventions
 

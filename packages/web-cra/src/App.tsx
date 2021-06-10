@@ -1,28 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import { Button } from '@woodshed/components';
+import { ClickCountButton } from '@woodshed/components';
 import { addThousandsSeparator } from '@woodshed/utils';
 
 import './App.css';
 
-function App(): JSX.Element {
+const App = (): JSX.Element => {
+    const [count, setCount] = useState<number>(0);
+
     return (
         <div className="App">
             <h1>@woodshed/web-cra</h1>
-            <Button
-                onClick={() => {
-                    // eslint-disable-next-line no-alert
-                    alert('You clicked a button.');
-                }}
-            >
-                This is an imported component.
-            </Button>
+            <ClickCountButton setCount={setCount}>Click me</ClickCountButton>
+            <p>{`You have clicked the button ${count} times`}</p>
+
             <p>
                 This is the output of an imported utility function:{' '}
                 {addThousandsSeparator('1000')}
             </p>
         </div>
     );
-}
+};
 
 export default App;
