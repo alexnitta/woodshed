@@ -1,8 +1,8 @@
 # Woodshed
 
-_A monorepo boilerplate based on Lerna, TypeScript and React_
+> A monorepo boilerplate based on Lerna, TypeScript and React
 
-> This readme written by Alex Nitta - [alexnitta.com](https://alexnitta.com/)
+_This readme written by Alex Nitta @ [alexnitta.com](https://alexnitta.com/)_
 
 This project is a reflection of lessons learned when building applications with [Lerna](https://lerna.js.org/), [TypeScript](https://www.typescriptlang.org/) and [React](https://reactjs.org/). I'm writing a blog post to describe how I arrived at this particular setup which will link back to this repo.
 
@@ -11,12 +11,14 @@ This project is a reflection of lessons learned when building applications with 
 It's worthwhile to note that you should do your own research into how each of these tools work before you chose this path; this readme is not going to go into the fundamentals of any of them.
 
 Reasons why you might want to clone this repo to start your own project:
+
 1. You want to be able to split your frontend code into multiple npm packages to support code reuse and separation of concerns
 2. You want to work on a team of multiple developers while using multiple npm packages
 3. You understand the tradeoffs of using TypeScript and React and have decided to use both
 4. You want flexibility in all the other choices aside from these ones; in other words, you have your own ideas about how to implement a data layer and API to support your frontend.
 
 Alternatives you could choose instead:
+
 1. [RedwoodJS](https://redwoodjs.com/) is a React-based framework that makes more choices for you and is more prescriptive in its structure. At the time of this writing, RedwoodJS is in beta and TypeScript support is not fully implemented, but it should be coming soon in v1.
 2. [Blitz](https://blitzjs.com/) is a fullstack framework built on top of [NextJS](https://nextjs.org/) with a novel approach to the data layer. TypeScript is fully supported. Also in beta, with a v1 promised soon.
 
@@ -41,6 +43,16 @@ To use such a workflow while developing several packages at once which depend on
 This workflow breaks down when running a local dev server like `webpack-dev-server` to run the root application. You run into race conditions and intermittent crashes that are very hard to debug - not to mention terrible performance from all these running build processes. TypeScript has a feature called Project References which is intended to solve this problem for pure TypeScript projects with several interdependent packages. However, this isn't a solution when you need to use Webpack because you import stylesheets or images in your TypeScript. There is a Webpack loader for TypeScript called `ts-loader` which supports project references, but you still are stuck with the fact that each dependency package is bundled into a single JS file, which kills a lot of the benefit of hot module reloading in Webpack.
 
 To circumvent all these issues, this project uses a different approach. There is no `build` script set up for the dependency packages because we do not intend to publish them individually. They exist only to share code between our various top-level applications. Instead, we are using `babel-loader` in the top-level package to resolve the imports for each dependency. In the `web-cra` package, this is accomplished by using [react-app-rewired](https://github.com/timarney/react-app-rewired) and [customize-cra](https://github.com/arackaf/customize-cra) to override the Webpack configuration provided by [Create React App](https://github.com/facebook/create-react-app). In the `web-next` package, this is accomplished by using [next-transpile-modules](https://github.com/kutlugsahin/next-transpile-modules) in the NextJS config file.
+
+### How to know it's working
+
+You'll know that this particular way of transpiling TypeScript is working because you can do this:
+
+1. Start up the dev server for either `packages/web-cra` or `packages/web-next`:
+    - cd to `packages/web-cra` or `packages/web-next`
+    - run `yarn start`
+2. Make some changes in any package imported by the top-level package, i.e. in `packages/components` or `packages/utils`
+3. Notice that your changes are hot reloaded without any separate process watching for changes in the lower-level packages.
 
 ## Code conventions
 
@@ -137,6 +149,10 @@ These scripts are used by the build system, so any errors you see when running t
 #### `yarn clean-all`
 
 This will delete the node_modules folder in each of the packages as well as the root node_modules folder. You will be required to answer "yes" to a prompt when deleting the node_modules within the packages.
+
+#### `yarn fix-js`
+
+Run `eslint` with the `--fix` flag to automatically fix linting issues across all packages. This is useful if you've just copy-pasted some code from elsewhere or done a find + replace with your editor that might have mangled your formatting.
 
 #### `yarn lint-js`
 
