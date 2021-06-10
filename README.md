@@ -50,7 +50,7 @@ In this boilerplate, the two top-level packages are `packages/web-cra` (built wi
 
 ## Core feature: TypeScript / Webpack / Babel setup
 
-In a typical TypeScript project, you would have a single `package.json` file that exposes the details of an NPM package written in TypeScript. The general workflow would be to write TypeScript code and transpile the code to JavaScript before publishing the package. Consumers of the package would be able to import the transpiled code as plain JavaScript. If a consumer was also working in TypeScript, they would import the `.d.ts` files as well, which are type definitions that allow interoperability between TypeScript projects.
+In a typical TypeScript project, you would have a single `package.json` file that exposes the details of an npm package written in TypeScript. The general workflow would be to write TypeScript code and transpile the code to JavaScript before publishing the package. Consumers of the package would be able to import the transpiled code as plain JavaScript. If a consumer was also working in TypeScript, they would import the `.d.ts` files as well, which are type definitions that allow interoperability between TypeScript projects.
 
 To use such a workflow while developing several packages at once which depend on each other, you would have to run a process for each package that watches for changes in the `src` folder and transpiles them to JavaScript (and the various type definitions and sourcemaps). This is possible with either the `tsc` CLI (for pure TypeScript) or Webpack (when importing other file types like CSS or images). Each package would have its own `start` script which would watch for changes and transpile the TypeScript source into JavaScript within that package.
 
