@@ -1,9 +1,11 @@
 {
-    "extends": "./tsconfig-package-base.json",
-    "compilerOptions": {
-      "baseUrl": "./packages",
-      "paths": {
-        "@woodshed/*": ["*/src"],
-      }
+  "extends": "./tsconfig-package-base.json",
+  "compilerOptions": {
+    "baseUrl": "./packages",
+    "paths": {
+      "@woodshed/*": [
+        "*/src"
+      ]
     }
   }
+}
