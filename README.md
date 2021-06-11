@@ -34,7 +34,7 @@ This boilerplate is intentionally bare-bones in some regards to give you more fl
 
 If you choose to implement a GraphQL API, make sure to use a tool like [graphql-code-generator](https://www.graphql-code-generator.com/) to generate TypeScript definitions from your GraphQL schema. This will save time and prevent bugs inherent in manually declaring type definitions.
 
-### Cloning the boilerplate
+### Using this as a starting point for your project
 
 When cloning this boilerplate to start your own project, you'll want to do a find-and-replace for all instances of `@woodshed` and replace it with your own project name. There are a few other places where the "woodshed" name shows up that you will also need to update, such as in [./packages/web-cra/public/index.html](./packages/web-cra/public/index.html). It goes without saying, but you should edit this readme to avoid confusion as well.
 
@@ -67,20 +67,22 @@ This approach was inspired by this [blog post](https://iamturns.com/typescript-b
 
 ## Getting started
 
+### Install dependencies
+
 1. If you don't have `yarn` installed yet, run `brew install yarn`. Other installation options [are available](https://yarnpkg.com/en/docs/install).
-2. Install and symlink all dependencies by running `lerna bootstrap` from the root of the monorepo.
+2. Install all dependencies by running `yarn` from the root of the monorepo.
+
+### Start up a top-level package
+
+To start up one of the top-level packages:
+
+1. Do either: `cd packages/web-cra` or `cd packages/web-next`
+2. Then do: `yarn start`
 
 Generally, you can find more detailed instructions on each package within its README.md file.
 ### How to know it's working
 
-You'll know that this particular way of transpiling TypeScript is working because you can do this:
-
-1. Follow directions under Getting started above.
-2. Start up the dev server for either `packages/web-cra` or `packages/web-next`:
-    - cd to `packages/web-cra` or `packages/web-next`
-    - run `yarn start`
-3. Make some changes in any package imported by the top-level package, i.e. in `packages/components` or `packages/utils`
-4. Notice that your changes in a lower-level package are immediately available in the top-level package, without any separate process watching for changes in the lower-level package. Hot module reloading works as you would expect.
+You'll know that this particular way of transpiling TypeScript is working because you can do start up a top-level app and then make some changes in a lower-level package, i.e. in `packages/components` or `packages/utils`, and those changes will be immediately available in the top-level package. This happens without any separate process watching for changes in the lower-level package. Hot module reloading works as you would expect.
 
 **This is the core feature of this boilerplate, and the thing that is hard to figure out when you're trying to set things up from scratch.**
 

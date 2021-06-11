@@ -2,17 +2,15 @@
 
 _React web application built with Create React App_
 
-## `react-app-rewired`
+# Available scripts
 
-If you take a look at the scripts in package.json, you'll see that we are using [react-app-rewired](https://github.com/timarney/react-app-rewired) and [customize-cra](https://github.com/arackaf/customize-cra) to override the Webpack configuration provided by [Create React App](https://github.com/facebook/create-react-app). We are doing this so that we don't have to transpile TypeScript in our dependency packages before consuming it in the web app. The inspiration for this approach comes from [this GitHub thread](https://github.com/facebook/create-react-app/issues/1333#issuecomment-593667643). Details are in `config-overrides.js`.
+- `yarn start`: start up the dev server for this app at [http://localhost:3000](http://localhost:3000)
+- `yarn build`: build the app for production
+- `yarn lint`: run ESLint against this package
+- `yarn test`: run Jest unit tests
+- `yarn test-watch`: run Jest unit tests in watch mode
 
-## Available scripts
-
-`yarn lint`: runs ESLint against this package
-`yarn test`: runs Jest unit tests
-`yarn test-watch`: runs Jest unit tests in watch mode
-
-If any of these scripts fail, the GitHub Actions workflow in the root of the monorepo at `.github/workflows/lint-and-unit-test.yml` will fail.
+If `yarn lint` or `yarn test` fails, the GitHub Actions workflow in the root of the monorepo at `.github/workflows/lint-and-unit-test.yml` will fail.
 
 ## ESLint configuration
 
