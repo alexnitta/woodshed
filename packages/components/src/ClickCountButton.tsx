@@ -15,7 +15,7 @@ interface ClickCountButtonProps {
 /**
  * A naive example of a wrapper component that uses a type declared in the globalTypes folder.
  * @param props - {@link ClickCountButtonProps}
- * @returns
+ * @returns JSX
  */
 export const ClickCountButton = ({
     children,
