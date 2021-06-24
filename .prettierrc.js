@@ -1,10 +1,11 @@
-const globalConfig = require("./.globalconfig");
+const globalConfig = require('./.globalconfig');
 
 const { tabWidth } = globalConfig;
 
 module.exports = {
     semi: true,
-    trailingComma: "all",
+    trailingComma: 'all',
     singleQuote: true,
     tabWidth,
+    arrowParens: 'avoid',
 };
